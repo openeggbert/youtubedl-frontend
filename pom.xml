@@ -24,8 +24,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.nanoboot.essential</groupId>
-        <artifactId>nanoboot-parent</artifactId>
+        <groupId>com.robertvokac.essential</groupId>
+        <artifactId>robertvokac-parent</artifactId>
         <version>0.1.1-SNAPSHOT</version>
     </parent>
 
@@ -40,7 +40,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.skip>true</checkstyle.skip><!-- TODO: make false-->
-        <power.version>2.0.0-SNAPSHOT</power.version>
+        <power.version>2.0.1-SNAPSHOT</power.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
@@ -114,17 +114,17 @@
     <dependencies>
         <!-- Power dependencies -->
         <dependency>
-            <groupId>org.nanoboot.powerframework</groupId>
+            <groupId>com.robertvokac.powerframework</groupId>
             <artifactId>power-time</artifactId>
             <version>${power.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.nanoboot.powerframework</groupId>
+            <groupId>com.robertvokac.powerframework</groupId>
             <artifactId>power-utils</artifactId>
             <version>${power.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.nanoboot.powerframework</groupId>
+            <groupId>com.robertvokac.powerframework</groupId>
             <artifactId>power-io</artifactId>
             <version>${power.version}</version>
         </dependency>
@@ -213,53 +213,47 @@
 
     <repositories>
         <repository>
-            <id>releases</id>
+            <id>openeggbert-releases-repository</id>
             <name>openeggbert-releases-repository</name>
             <url>https://repo.openeggbert.com/releases</url>
         </repository>
         <repository>
-            <id>snapshots</id>
+            <id>openeggbert-snapshots-repository</id>
             <name>openeggbert-snapshots-repository</name>
             <url>https://repo.openeggbert.com/snapshots</url>
         </repository>
         
         <repository>
-            <id>releases-robertvokac</id>
+            <id>robertvokac-releases-repository</id>
             <name>robertvokac-releases-repository</name>
-            <url>https:/maven.robertvokac.com/releases</url>
+            <url>https://maven.robertvokac.com/releases</url>
         </repository>
         <repository>
-            <id>snapshots-robertvokac</id>
+            <id>robertvokac-snapshots-repository</id>
             <name>robertvokac-snapshots-repository</name>
             <url>https://maven.robertvokac.com/snapshots</url>
-        </repository>
-        
-        <repository>
-            <id>AsposeJavaAPI</id>
-            <name>Aspose Java API</name>
-            <url>https://repository.aspose.com/repo/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>releases</id>
+            <id>openeggbert-releases-repository</id>
             <name>openeggbert-releases-repository</name>
-            <url>https:/repo.openeggbert.com/releases</url>
+            <url>https://repo.openeggbert.com/releases</url>
         </pluginRepository>
         <pluginRepository>
-            <id>snapshots</id>
+            <id>openeggbert-snapshots-repository</id>
             <name>openeggbert-snapshots-repository</name>
             <url>https://repo.openeggbert.com/snapshots</url>
         </pluginRepository>
         
         <pluginRepository>
-            <id>releases-robertvokac</id>
+            <id>robertvokac-releases-repository</id>
             <name>robertvokac-releases-repository</name>
-            <url>https:/maven.robertvokac.com/releases</url>
+            <url>https://maven.robertvokac.com/releases</url>
         </pluginRepository>
         <pluginRepository>
-            <id>snapshots-robertvokac</id>
+            <id>robertvokac-snapshots-repository</id>
             <name>robertvokac-snapshots-repository</name>
             <url>https://maven.robertvokac.com/snapshots</url>
         </pluginRepository>

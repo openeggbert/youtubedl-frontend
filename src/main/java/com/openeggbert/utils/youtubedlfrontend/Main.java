@@ -181,7 +181,7 @@ public class Main {
                             //bytes = Utils.resizeImage(bais, 125, (int) (9d / 16d * 125d), "webp");
                         }
 
-                        String bytesS = "data:image/jpg;base64, " + org.nanoboot.powerframework.io.bit.base64.Base64Coder.encode(bytes);
+                        String bytesS = "data:image/jpg;base64, " + com.robertvokac.powerframework.io.bit.base64.Base64Coder.encode(bytes);
                         oneChannelStringBuilder.append(bytesS);
                     } catch (IOException ex) {
                         throw new YoutubedlFrontendException(ex.getMessage());
