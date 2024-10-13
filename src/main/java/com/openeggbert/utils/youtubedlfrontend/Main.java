@@ -2,21 +2,22 @@
 // youtubedl-frontend: Tool generating html pages for Archive Box.
 // Copyright (C) 2024 the original author or authors.
 //
-// This program is free software; you can redistribute it and/or
+// This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; version 2
-// of the License only.
+// as published by the Free Software Foundation, either version 3
+// of the License, or (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
+// along with this program. If not, see 
+// <https://www.gnu.org/licenses/> or write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ///////////////////////////////////////////////////////////////////////////////////////////////
-package org.nanoboot.youtubedlfrontend;
+package com.openeggbert.utils.youtubedlfrontend;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,7 +29,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static org.nanoboot.youtubedlfrontend.Args.TWO_DASHES;
+import static com.openeggbert.utils.youtubedlfrontend.Args.TWO_DASHES;
 
 /**
  * @author <a href="mailto:mail@robertvokac.com">Robert Vokac</a>
@@ -46,7 +47,7 @@ public class Main {
 
         if (args.length < 1) {
             //System.err.println("At least one argument is expected, but the count of arguments is: " + args.length + ".");
-            String argsS = "/rv/blupi/archivebox --video_ 7qKUtn76q30 --always-generate-metadata 1"
+            String argsS = "/rv/blupi/archivebox --video_ 7qKUtn76q30 --always-generate-metadata 0"
                     + " --always-generate-html-files 1 --videos-per-row 4 --thumbnail-links-to-youtube 1"
                     + " --thumbnail-as-base64 1"
                     + " --channel_ UCqBpgfXap7cZOYkAC34u8Lg ";
