@@ -47,8 +47,8 @@ public class Main {
 
         if (args.length < 1) {
             //System.err.println("At least one argument is expected, but the count of arguments is: " + args.length + ".");
-            String argsS = "/rv/blupi/archivebox --video_ 7qKUtn76q30 --always-generate-metadata 0"
-                    + " --always-generate-html-files 1 --videos-per-row 4 --thumbnail-links-to-youtube 1"
+            String argsS = "/rv/blupi/archivebox --video_ 5rGd2VQz3mo --always-generate-metadata 0"
+                    + " --always-generate-html-files 1 --videos-per-row 4 --thumbnail-links-to-youtube 0"
                     + " --thumbnail-as-base64 1"
                     + " --channel_ UCqBpgfXap7cZOYkAC34u8Lg ";
             args = argsS.split(" ");
@@ -150,6 +150,7 @@ public class Main {
             iii = 0;
             internalStaticVariableVideoNumberPerRow = 0;
             oneChannelStringBuilder.append("<table>\n");
+            long countOfVideosInChannel = youtubeVideos.stream().filter(v -> channel.equals(v.getChannelName())).count();
             youtubeVideos.stream().filter(v -> channel.equals(v.getChannelName())).forEach(youtubeVideo -> {
                 iii++;
                 if (internalStaticVariableVideoNumberPerRow == 0) {
@@ -209,8 +210,10 @@ public class Main {
                 if (!videoHtmlFile.exists() || argsInstance.getBoolean(ArgType.ALWAYS_GENERATE_HTML_FILES).get()) {
 
                     {
-                        String singleVideo = new YoutubeVideoHtml(youtubeVideo, archiveBoxRootDirectory, archiveBoxArchiveDirectory).toString();
+                        String singleVideo = new YoutubeVideoHtml(youtubeVideo, archiveBoxRootDirectory, archiveBoxArchiveDirectory, countOfVideosInChannel).toString();
                         Utils.writeTextToFile(singleVideo, videoHtmlFile);
+                        processedVideos++;
+                        System.out.println("Processed " + processedVideos + " from " + archiveBoxArchiveDirectory.list().length);
                     }
                 }
             });
@@ -229,6 +232,6 @@ public class Main {
         return oneChannelStringBuilder;
     }
 
-  
+  private static int processedVideos = 0;
 
 }
