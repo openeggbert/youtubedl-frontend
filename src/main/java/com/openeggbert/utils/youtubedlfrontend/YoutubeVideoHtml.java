@@ -21,8 +21,6 @@ package com.openeggbert.utils.youtubedlfrontend;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -35,7 +33,7 @@ import lombok.Getter;
 public class YoutubeVideoHtml {
 
     @Getter
-    private String singleVideo;
+    private final String singleVideo;
 
     public YoutubeVideoHtml(YoutubeVideo youtubeVideo, File archiveBoxRootDirectory, File archiveBoxArchiveDirectory, long countOfVideosInChannel) {
           
@@ -61,7 +59,7 @@ public class YoutubeVideoHtml {
                                                                     """
         );
         String finalUrl = "https://www.youtube.com/watch?v=" + youtubeVideo.getId();
-        videoHtml.append("<input type=\"text\" id=\"youtube_url\" name=\"youtube_url\" size=\"60\" width=\"60\" style=\"margint-bottom:20px;margin-right:10px;font-size:110%;padding:5px;\" value=\"" + finalUrl + "\"><br>\n<br>\n");
+        videoHtml.append("<input type=\"text\" id=\"youtube_url\" name=\"youtube_url\" size=\"60\" width=\"60\" style=\"margint-bottom:20px;margin-right:10px;font-size:110%;padding:5px;\" value=\"").append(finalUrl).append("\"><br>\n<br>\n");
         videoHtml.append("<a target=\"_blank\" href=\"").append(finalUrl).append("\">");
         videoHtml.append(finalUrl).append("</a>").append("<br>\n");
         String videoLocalFileEncoded = null;
@@ -73,12 +71,10 @@ public class YoutubeVideoHtml {
             throw new YoutubedlFrontendException(ex.getMessage());
         }
         if (!youtubeVideo.getVideoFileName().endsWith(".mkv")) {
-            //try {
             videoHtml.append("<video src=\"");
             
-            
             String videoFileName = youtubeVideo.getVideoFileName();
-//            if (!videoFileName.contains("："))
+
             {
                 try {
                     videoFileName = URLEncoder.encode(youtubeVideo.getVideoFileName(), StandardCharsets.UTF_8.displayName()).replace("+", "%20").replace("#", "%23");
@@ -95,9 +91,7 @@ public class YoutubeVideoHtml {
                                                                                                                         Your browser does not support the video tag.
                                                                                                                         </video><br>
                                                                                                                         """);
-//                        } catch (UnsupportedEncodingException ex) {
-//                            throw new YoutubedlFrontendException(ex.getMessage());
-//                        }
+
         } else {
             videoHtml.append("<a target=\"_blank\" href=\"").append(videoLocalUrl).append("\">");
             
@@ -113,24 +107,21 @@ public class YoutubeVideoHtml {
         boolean backEnabled = youtubeVideo.getNumber() > 1 && youtubeVideo.getPreviousVideoId() != null;
         
         {
-//                            videoHtml.append("<a href=\"./").append(youtubeVideo.getPreviousVideoId()).append(".html\">");
+
 videoHtml.append("<button ").append(backEnabled ? "" : "disabled").append(" style=\"").append(backEnabled ? "" : "visibility:hidden;").append("font-size:200%;\" onclick=\"window.location ='").append("./").append(youtubeVideo.getPreviousVideoId()).append(".html'\">");
-//<button class="link" onclick="alert(1)">Click</button>
+
         
         videoHtml.append("Back");
-            //videoHtml.append("</a>");
             videoHtml.append("</button>");
         }
         videoHtml.append("&nbsp;&nbsp;&nbsp;");
         boolean nextEnabled = youtubeVideo.getNumber() < countOfVideosInChannel && youtubeVideo.getNextVideoId() != null;
         
         {
-            //videoHtml.append("<a href=\"./").append(youtubeVideo.getNextVideoId()).append(".html\">");
             videoHtml.append("<button ").append(nextEnabled ? "" : "disabled").append(" style=\"").append(nextEnabled ? "" : "visibility:hidden;").append("font-size:200%;\" onclick=\"window.location ='").append("./").append(youtubeVideo.getNextVideoId()).append(".html'\">");
         
         videoHtml.append("Next");
         
-            //videoHtml.append("</a>");
             videoHtml.append("</button>");
             
         }
@@ -161,7 +152,7 @@ videoHtml.append("<button ").append(backEnabled ? "" : "disabled").append(" styl
             
             videoHtml.append("\"><br>");
         }
-//        videoHtml.append("<a target=\"_blank\" href=\"file://").append(archiveBoxArchiveDirectory).append("/").append(youtubeVideo.getSnapshot()).append("/media\">Directory</a>").append("<br>");
+
         videoHtml.append("<br>\n<br>\n");
         videoHtml.append("<br>\n");
         videoHtml.append("<pre style=\"white-space: pre-wrap; border:1px solid black;max-width:600px;padding:10px;min-height:50px;\">");
@@ -170,8 +161,6 @@ videoHtml.append("<button ").append(backEnabled ? "" : "disabled").append(" styl
         videoHtml.append("<h2>Comments</h2>");
         youtubeVideo.getComments().forEach(co -> {
             
-//    private String id, parentId, text, author;
-//    private int timestamp;
 videoHtml.append("<div style=\"margin-left:")
         .append(co.dotCount() * 50)
         .append("px;\">");

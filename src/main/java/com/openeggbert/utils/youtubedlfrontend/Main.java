@@ -64,12 +64,12 @@ public class Main {
         List<YoutubeVideo> youtubeVideos = YoutubeVideo.loadYoutubeVideos(archiveBoxArchiveDirectory, argsInstance);
         Map<String, String> channelUrls = new HashMap<>();
         List<String> channels = new ArrayList<>();
-        youtubeVideos.stream().forEach(c -> {
-            final String channelName_ = c.getChannelName();
+        youtubeVideos.stream().forEach(v -> {
+            final String channelName = v.getChannelName();
 
-            if (channelName_ != null && !channelUrls.containsKey(c.getChannelName())) {
-                channelUrls.put(channelName_, c.getChannelUrl());
-                channels.add(channelName_);
+            if (channelName != null && !channelUrls.containsKey(v.getChannelName())) {
+                channelUrls.put(channelName, v.getChannelUrl());
+                channels.add(channelName);
             }
         });
         Collections.sort(channels, (String o1, String o2) -> o1.toLowerCase().compareTo(o2.toLowerCase()));
@@ -94,21 +94,11 @@ public class Main {
         System.out.println("[Warning] Snapshots without videos:");
         YoutubeVideo.missingYoutubeVideos.forEach(s -> System.out.println(s));
         System.out.println("Total duration: " + ((int)((((double)YoutubeVideo.totalDurationInMilliseconds) / 1000d / 60d / 60d))) + " hours");
-        youtubeVideos.sort(new Comparator<YoutubeVideo>() {
-            @Override
-            public int compare(YoutubeVideo o1, YoutubeVideo o2) {
-                return Long.valueOf(o1.getVideoDurationInMilliseconds()).compareTo(o2.getVideoDurationInMilliseconds());
-            }
-        });
-        youtubeVideos.forEach(y-> {System.out.println(y.getVideoDurationInMinutes() + " = minutes \t" + "https://youtube.com/watch?v=" + y.getId() + "\t" + y.getTitle());});
+        youtubeVideos.stream().sorted((YoutubeVideo o1, YoutubeVideo o2) -> Long.valueOf(o1.getVideoDurationInMilliseconds()).compareTo(o2.getVideoDurationInMilliseconds()))
+        .forEach(y-> {System.out.println(y.getVideoDurationInMinutes() + " = minutes \t" + "https://youtube.com/watch?v=" + y.getId() + "\t" + y.getTitle());});
         System.out.println("\n\n\n\n");
-        youtubeVideos.sort(new Comparator<YoutubeVideo>() {
-            @Override
-            public int compare(YoutubeVideo o1, YoutubeVideo o2) {
-                return Long.valueOf(o1.getVideoFileSizeInBytes()).compareTo(o2.getVideoFileSizeInBytes());
-            }
-        });
-        youtubeVideos.forEach(y-> {System.out.println(y.getVideoFileSizeInMegaBytes()+ " MB \t" + "https://youtube.com/watch?v=" + y.getId() + "\t" + y.getTitle());});
+        youtubeVideos.stream().sorted((YoutubeVideo o1, YoutubeVideo o2) -> Long.valueOf(o1.getVideoFileSizeInBytes()).compareTo(o2.getVideoFileSizeInBytes()))
+        .forEach(y-> {System.out.println(y.getVideoFileSizeInMegaBytes()+ " MB \t" + "https://youtube.com/watch?v=" + y.getId() + "\t" + y.getTitle());});
     }
 
     private static StringBuilder createChannelHtml(String wantedChannelName, List<String> channels, Args argsInstance, Map<String, String> channelUrls, List<YoutubeVideo> youtubeVideos, File archiveBoxRootDirectory, File videosDirectory, File archiveBoxArchiveDirectory) {

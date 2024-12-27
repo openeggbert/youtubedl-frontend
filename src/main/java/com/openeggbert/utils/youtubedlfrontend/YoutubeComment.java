@@ -50,7 +50,6 @@ public class YoutubeComment implements Comparable<YoutubeComment> {
         List<YoutubeComment> root = getChildren(list, "root");
         Collections.sort(root);
         return list;
-        //return sort(list, new ArrayList<>(), "root");
     }
 
     private static List<YoutubeComment> getChildren(List<YoutubeComment> all, String parentId) {
@@ -65,13 +64,7 @@ public class YoutubeComment implements Comparable<YoutubeComment> {
 
     @Override
     public int compareTo(YoutubeComment o) {
-        //if(this.timestamp != o.timestamp) {
-        //            return this.id.compareTo(o.id);
         return Long.valueOf(this.timestamp).compareTo(o.timestamp);
-//} 
-//        else {
-//            return this.id.compareTo(o.id);
-//        }
     }
 
     public int dotCount() {

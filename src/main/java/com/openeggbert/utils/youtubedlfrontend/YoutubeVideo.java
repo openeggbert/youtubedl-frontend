@@ -81,9 +81,6 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
         File metadataFile = new File(mediaDirectory, "metadata");
         if (!argAlwaysGenerateMetadata && metadataFile.exists()) {
 
-            YoutubeVideo yv = new YoutubeVideo();
-            //new ObjectMapper().readValue(Utils.readTextFromFile(metadataFile), YoutubeVideo.class);
-
             Properties properties = new Properties();
             var input = new FileInputStream(metadataFile);
             properties.load(new InputStreamReader(input, Charset.forName("UTF-8")));
@@ -96,7 +93,7 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
             snapshot = properties.getProperty("snapshot");
             title = properties.getProperty("title");
             videoFileName = properties.getProperty("videoFileName");
-            videoFileSizeInBytes = Long.valueOf(properties.getProperty("videoFileSizeInBytes"));
+            videoFileSizeInBytes = Long.parseLong(properties.getProperty("videoFileSizeInBytes"));
             videoFileSha512HashSum = properties.getProperty("videoFileSha512HashSum");
             videoDuration = properties.getProperty("videoDuration");
             channelName = properties.getProperty("channelName");
@@ -110,7 +107,6 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
             comments = new ArrayList<>();
             JSONArray ja = new JSONArray(properties.getProperty("comments"));
             ja.forEach(o -> {
-                JSONObject jo = (JSONObject) o;
                 try {
                     final String toString = o.toString();
                     System.out.println(toString);
@@ -124,7 +120,7 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
             previousVideoId = properties.getProperty("previousVideoId");
             nextVideoId = properties.getProperty("nextVideoId");
             ext = properties.getProperty("ext");
-            number = Integer.valueOf(properties.getProperty("number"));
+            number = Integer.parseInt(properties.getProperty("number"));
             return;
         }
         List<File> files = Arrays.asList(mediaDirectory.listFiles());
@@ -132,9 +128,6 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
         String json = jsonFile.isPresent() ? Utils.readTextFromFile(jsonFile.get()) : "";
         JSONObject jsonObject = new JSONObject(json);
         id = jsonObject.getString("id");
-//        if(!Main.argVideo.isBlank() && !id.equals(Main.argVideo)) {
-//            return;
-//        }
 
         thumbnail = jsonObject.getString("thumbnail");
         if (thumbnail == null) {
@@ -143,9 +136,7 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
         JSONArray thumbnails = jsonObject.getJSONArray("thumbnails");
         for (int i = 0; i < thumbnails.length(); i++) {
             JSONObject o = (JSONObject) thumbnails.get(i);
-            if (!o.has("width")) {
-                continue;
-            } else {
+            if (o.has("width")) {
                 int width = o.getInt("width");
                 if (width < (((double) Main.THUMBNAIL_WIDTH) * 0.8d)) {
                     continue;
@@ -159,10 +150,6 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
         File thumbnailFile = new File(mediaDirectory, "thumbnail." + getThumbnailFormat());
         File miniThumbnailFile = new File(mediaDirectory, "mini-thumbnail." + getMiniThumbnailFormat());
 
-//        new File(mediaDirectory, "thumbnail.jpg").delete();
-//        new File(mediaDirectory, "mini-thumbnail.jpg").delete();
-//        new File(mediaDirectory, "thumbnail.webp").delete();
-//        new File(mediaDirectory, "mini-thumbnail.webp").delete();
         if (thumbnail != null) {
             if (!thumbnailFile.exists()) {
                 try (BufferedInputStream in = new BufferedInputStream(new URL(thumbnail).openStream()); FileOutputStream fileOutputStream = new FileOutputStream(thumbnailFile.getAbsolutePath())) {
@@ -200,7 +187,6 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
                 || (f.getName().endsWith(".mp4"))
                 || (f.getName().endsWith(".mkv")) || (f.getName().endsWith(".webm"))
                 )
-
                 .findFirst();
 
         snapshot = mediaDirectory.getParentFile().getName();
@@ -353,10 +339,10 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
                 continue;
             }
             YoutubeVideo youtubeVideo = new YoutubeVideo(mediaDirectory, argsInstance.getBoolean(ArgType.ALWAYS_GENERATE_METADATA).get(), argsInstance.getString(ArgType.VIDEO).orElse(""));
-            if (argsInstance.getString(ArgType.VIDEO).isPresent() && !argsInstance.getString(ArgType.VIDEO).equals(youtubeVideo.getId())) {
+            if (argsInstance.getString(ArgType.VIDEO).isPresent() && !argsInstance.getString(ArgType.VIDEO).get().equals(youtubeVideo.getId())) {
                 continue;
             }
-            if (argsInstance.getString(ArgType.CHANNEL).isPresent() && !argsInstance.getString(ArgType.CHANNEL).equals(youtubeVideo.getChannelId())) {
+            if (argsInstance.getString(ArgType.CHANNEL).isPresent() && !argsInstance.getString(ArgType.CHANNEL).get().equals(youtubeVideo.getChannelId())) {
                 continue;
             }
 

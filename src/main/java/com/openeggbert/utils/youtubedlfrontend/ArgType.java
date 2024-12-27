@@ -34,9 +34,9 @@ public enum ArgType {
     THUMBNAIL_AS_BASE64("thumbnail-as-base64", "false"),
     THUMBNAIL_LINKS_TO_YOUTUBE("thumbnail-links-to-youtube", "false");
     @Getter
-    private String name;
+    private final String name;
     @Getter
-    private String defaultValue;
+    private final String defaultValue;
 
     ArgType(String name, String defaultValue) {
         this.name = name;
