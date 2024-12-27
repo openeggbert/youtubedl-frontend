@@ -328,6 +328,7 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
         }
     }
     public static long totalDurationInMilliseconds = 0l;
+
     public static List<YoutubeVideo> loadYoutubeVideos(File archiveBoxArchiveDirectory, Args argsInstance) throws IOException, InterruptedException {
         int i = 0;
         List<YoutubeVideo> youtubeVideos = new ArrayList<>();
@@ -394,10 +395,11 @@ public class YoutubeVideo implements Comparable<YoutubeVideo> {
         }
         return youtubeVideos;
     }
+
     public long getVideoDurationInMilliseconds() {
         String duration = videoDuration;
         String[] array = duration.split(":");
-        long ms = Long.valueOf(array[0]) * 60l *60l * 1000l;
+        long ms = Long.valueOf(array[0]) * 60l * 60l * 1000l;
         ms = ms + Long.valueOf(array[1]) * 60l * 1000l;
         String[] array2 = array[2].split("\\.");
         ms = ms + Long.valueOf(array2[0]) * 1000l;

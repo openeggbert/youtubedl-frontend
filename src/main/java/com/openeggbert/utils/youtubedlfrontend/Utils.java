@@ -51,6 +51,7 @@ public class Utils {
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     public static final NumberFormat TWO_DECIMAL_POINTS_FORMATTER = new DecimalFormat("#0.00");
+
     private Utils() {
         //Not meant to be instantiated.
     }
