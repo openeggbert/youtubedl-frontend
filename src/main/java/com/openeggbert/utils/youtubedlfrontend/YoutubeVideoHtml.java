@@ -87,7 +87,7 @@ public class YoutubeVideoHtml {
             videoHtml.append("../archive/").append(youtubeVideo.getSnapshot()).append("/media/").append(//                                    URLEncoder.encode(
                     videoFileName);
             videoHtml.append("""
-                                                                                                                        " controls autoplay height=\"440px\">
+                                                                                                                        " controls height=\"440px\">
                                                                                                                         Your browser does not support the video tag.
                                                                                                                         </video><br>
                                                                                                                         """);

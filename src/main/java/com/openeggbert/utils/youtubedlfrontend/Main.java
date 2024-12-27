@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class Main {
 
         if (args.length < 1) {
             //System.err.println("At least one argument is expected, but the count of arguments is: " + args.length + ".");
-            String argsS = "/rv/blupi/archivebox --video_ 5rGd2VQz3mo --always-generate-metadata 0"
+            String argsS = "/rv/blupi/archivebox --video_ 5rGd2VQz3mo --always-generate-metadata 1"
                     + " --always-generate-html-files 1 --videos-per-row 4 --thumbnail-links-to-youtube 0"
                     + " --thumbnail-as-base64 1"
                     + " --channel_ UCqBpgfXap7cZOYkAC34u8Lg ";
